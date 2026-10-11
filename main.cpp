@@ -68,20 +68,23 @@ int main() {
         return 0;
     }
 
-    // Case 2: x wins but o has made the same number of moves as x
-    if (x_wins && count_o == count_x) {
+    // Case 2: Move count difference is invalid
+    // x goes first, so x should have either the same number of moves as o or one more
+    if (count_x < count_o || count_x - count_o > 1) {
         std::cout << "invalid" << std::endl;
         return 0;
     }
 
-    // Case 3: o wins but x has made more moves than o
+    // Case 3: x wins but has the same number of moves as o
+    // This is impossible because x would have won on the previous move
+    if (x_wins && count_x == count_o) {
+        std::cout << "invalid" << std::endl;
+        return 0;
+    }
+
+    // Case 4: o wins but x has more moves than o
+    // This is impossible because o would have won on the previous move when counts were equal
     if (o_wins && count_x > count_o) {
-        std::cout << "invalid" << std::endl;
-        return 0;
-    }
-
-    // Case 4: The difference in the number of moves is more than 1
-    if (count_x - count_o > 1 || count_o - count_x > 1) {
         std::cout << "invalid" << std::endl;
         return 0;
     }
